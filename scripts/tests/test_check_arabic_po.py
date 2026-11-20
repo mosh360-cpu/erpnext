@@ -38,8 +38,12 @@ class ArabicPOCheckTests(unittest.TestCase):
     def test_parses_multiline_translation(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "ar.po"
-            path.write_text('msgid "One"\nmsgstr "\"\n"Two"\n', encoding="utf-8")
-            self.assertEqual(parse_po(path)[0]["translations"], {"msgstr": "Two"})
+            path.write_text(
+                'msgid "Greeting"\nmsgstr "مرحبا "\n"بكم"\n', encoding="utf-8"
+            )
+            self.assertEqual(
+                parse_po(path)[0]["translations"], {"msgstr": "مرحبا بكم"}
+            )
 
 
 if __name__ == "__main__":
